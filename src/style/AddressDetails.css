@@ -1,0 +1,38 @@
+.Address-container {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 500px;
+    min-height: 100vh;
+    background-color: rgb(221, 211, 231);
+    align-items: center;
+}
+
+.Address-container input[type="text"],
+.Address-container textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+label {
+    font-size: medium;
+    font-weight: bold;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px; 
+    margin-left: 20%;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

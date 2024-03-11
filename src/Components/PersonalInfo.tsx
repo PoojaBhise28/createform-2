@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import UserModel from "../Model/UserModel";
 import "../style/PersonalInfo.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   CreatePersonInfoAsync,
   DeletePersonInfoAsync,
+  GetUserByIdAsync,
+  UpdatePersonInfoAsync,
 } from "../Services/PersonalInfoServices";
-
-
+import { CreateUserAsync, UpdateUserAsync } from "../Services/UserServices";
+import ShowList from "./showList";
+import userEvent from "@testing-library/user-event";
 
 // export default function PersonalInfo() {
 //   return (
@@ -18,10 +21,13 @@ import {
 //   )
 // }
 
+const PersonalInformation = () => {
+  const { id } = useParams();
+  //alert(id);
+  //const params = useParams();
+  // const id = parseInt(params.id);
 
-const  PersonalInformation = ({rowData}:{rowData : UserModel | null }) => {
-
-  const initialUserData: UserModel = rowData ||  {
+  const initialUserData: UserModel = {
     emailAddress: "",
     password: "",
     firstName: "",
@@ -29,22 +35,20 @@ const  PersonalInformation = ({rowData}:{rowData : UserModel | null }) => {
     mobileNumber: "",
     description: "",
     phoneNumber: "",
-
     IsActive: false,
-    userId: 16,
+    userId: 13,
     id: 0,
-    isUpdate: false
+    isUpdate: false,
   };
 
   const [userData, setUserData] = useState<UserModel>(initialUserData);
+  const navigate = useNavigate();
 
   const onTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.currentTarget.value;
     const name = event.currentTarget.name;
     setUserData((prevState) => ({ ...prevState, [name]: newValue }));
   };
-
-  const navigate = useNavigate();
 
   const onTextAreaFieldChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -53,40 +57,68 @@ const  PersonalInformation = ({rowData}:{rowData : UserModel | null }) => {
     const name = event.currentTarget.name;
 
     setUserData((prevState) => ({ ...prevState, [name]: newValue }));
-
-    //alert(name);
   };
 
-  const SaveData = () => {
-    alert(JSON.stringify(userData));
-    //CreatePersonInfoAsync(userData,2);
-    CreatePersonInfoAsync(userData);
+  // const SaveData = () => {
+  //   //alert(JSON.stringify(userData));
+  //   if(userData.id==0){
+  //     CreatePersonInfoAsync(userData);
+  //   }
+
+  //   else{
+  //     UpdatePersonInfoAsync(rowData,userData.id)
+  //   }
+  // };
+
+  const SaveData = async () => {
+    alert("heyyyy");
+
+    if (userData.id !== 0) {
+      alert(userData.id);
+      console.log(userData.id + "update");
+      await UpdatePersonInfoAsync(userData, userData.id);
+      console.log("User data updated successfully.");
+    } else {
+      alert(userData.id + "new");
+      await CreatePersonInfoAsync(userData);
+      console.log("New user data created successfully.");
+    }
+
+    setUserData(initialUserData);
+    ShowList();
   };
 
   const handleShowList = () => {
     navigate("/show");
   };
 
-  
-
   const OnShowData = () => {
     alert(JSON.stringify(userData));
-    //CreatePersonInfoAsync(userData,2);
-    // CreatePersonInfoAsync(userData);
   };
 
-  const handelDelete = () => {};
+  // const fetchData = () => {
+  //   GetUserByIdAsync(id || 0);
+  // };
+  // useEffect(() => {
+  //   setUserData(initialUserData);
+  // }, [id]);
 
-  const fetchData = () => {
-    axios
-      .get(`http://localhost:5203/api/personalInfo`)
-      .then((res) => console.log("data", res))
-      .catch((e) => console.error(e));
-  };
+  // useEffect(() => {
+  //   var data = await GetUserByIdAsync(id);
+  // }, [id]);
+
   useEffect(() => {
-    
-    setUserData(initialUserData);
-  }, [rowData]);
+    async function fetchMyAPI() {
+      let response = await GetUserByIdAsync(49);
+
+      alert(JSON.stringify(response));
+
+      setUserData(response.data);
+      //dataSet(response);
+    }
+
+    fetchMyAPI();
+  }, [id]);
 
   return (
     <div className="container">
@@ -158,16 +190,16 @@ const  PersonalInformation = ({rowData}:{rowData : UserModel | null }) => {
       </div>
       <br />
 
-     
-      
-      <button onClick={SaveData}>{userData.isUpdate ? "Update" : "Save"}</button>
+      <button onClick={SaveData}>
+        Save
+        {/* {userData.id !== 0 ? "Update" : "Save"}  */}
+      </button>
 
-   
       <button className="showbutton" onClick={handleShowList}>
         Show List
       </button>
     </div>
   );
-}
+};
 
 export default PersonalInformation;
