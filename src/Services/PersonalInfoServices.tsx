@@ -30,7 +30,7 @@ export async function GetPersonInfoAsync(
     //console.log(response);
     return response;
   } catch (error) {
-    throw new Error("Failed to update leave data: " + (error as Error).message);
+    throw new Error("Failed to update by id leave data: " + (error as Error).message);
   }
 }
 
@@ -43,7 +43,7 @@ export const CreatePersonInfoAsync = async (data: any) => {
     console.table(response);
     return response.data;
   } catch (error) {
-    throw new Error("Failed to update leave data: " + (error as Error).message);
+    throw new Error("Failed to create: " + (error as Error).message);
   }
 };
 
@@ -67,6 +67,6 @@ export const DeletePersonInfoAsync = async (id: number) => {
 
     return res.data;
   } catch (error) {
-    throw new Error("Failed to update leave data: " + (error as Error).message);
+    throw new Error("Failed to delete leave data: " + (error as Error).message);
   }
 };

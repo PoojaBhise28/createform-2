@@ -16,9 +16,14 @@ export default function App() {
  
       <BrowserRouter>
      <Routes>
-        <Route path="/show" element={<ShowList />} />
+        {/* <Route path="/show" element={<ShowList />} />
           <Route path="/" element={<PersonalInformation />} />
-          <Route path="/:id" element={<PersonalInformation />} />
+          <Route path="/:id" element={<PersonalInformation />} /> */}
+          
+          <Route path="/personalInfo" element={<PersonalInformation />} />
+          <Route path="/" element={<ShowList />} />
+          <Route path="/personalInfo/:id" element={<PersonalInformation />} />
+
           </Routes>
 
       </BrowserRouter>

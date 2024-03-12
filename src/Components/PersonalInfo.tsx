@@ -36,7 +36,7 @@ const PersonalInformation = () => {
     description: "",
     phoneNumber: "",
     IsActive: false,
-    userId: 13,
+    userId: 7,
     id: 0,
     isUpdate: false,
   };
@@ -81,14 +81,14 @@ const PersonalInformation = () => {
       await CreatePersonInfoAsync(userData);
       console.log("New user data created successfully.");
     }
-
     setUserData(initialUserData);
-    navigate("/show");
+    navigate("/");
   };
 
   const handleShowList = () => {
-    navigate("/show");
+    navigate("/");
   };
+
 
   useEffect(() => {
     async function fetchMyAPI() {
@@ -102,6 +102,22 @@ const PersonalInformation = () => {
 
     fetchMyAPI();
   }, [id]);
+
+
+  // useEffect(() => {
+  //   async function fetchMyAPI() {
+  //     let response = await GetUserByIdAsync(49);
+
+  //     // alert(JSON.stringify(response));
+
+  //     setUserData(response.data);
+  //     //dataSet(response);
+  //   }
+
+  //   fetchMyAPI();
+  // }, [id]);
+
+  
 
   return (
     <div className="container">

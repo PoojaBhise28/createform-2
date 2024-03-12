@@ -35,7 +35,7 @@ export default function ShowList() {
   const handelUpdateData = (id: number) => {
     // const selectedUser = userInfo.find(user => user.userId === id);
     // setRowData(selectedUser || null);
-    navigatetoPersonalDetails("/" + id);
+    navigatetoPersonalDetails("/personalInfo/" + id);
   };
 
   const handelDelete = (id: number) => {
@@ -46,6 +46,7 @@ export default function ShowList() {
   return (
     <div className="show-container">
       <h1>Personal Data</h1>
+      <button className="createbutton"></button>
       <table className="contact-list">
         <thead>
           <tr>
@@ -72,7 +73,6 @@ export default function ShowList() {
               <td>{data.description}</td>
               <td>
                 <button type="button" onClick={() => handelUpdateData(data.id)}>
-                 
                   Edit
                 </button>
               </td>
@@ -85,7 +85,6 @@ export default function ShowList() {
           ))}
         </tbody>
       </table>
-      
     </div>
   );
 }
