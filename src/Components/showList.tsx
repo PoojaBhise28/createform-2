@@ -20,7 +20,7 @@ export default function ShowList() {
   useEffect(() => {
     async function fetchMyAPI() {
       const response = await GetPersonInfoAsync(7);
-      alert(JSON.stringify(response));
+      // alert(JSON.stringify(response));
       setUserInfo(response.data);
     }
     fetchMyAPI();
@@ -52,6 +52,7 @@ export default function ShowList() {
             <th>Sr. no</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Email Id</th>
             <th>Phone Number</th>
             <th>Mobile Number</th>
             <th>Description</th>
@@ -65,12 +66,13 @@ export default function ShowList() {
               <td>{index + 1}</td>
               <td>{data.firstName}</td>
               <td>{data.lastName}</td>
+              <td>{data.emailAddress}</td>
               <td>{data.phoneNumber}</td>
               <td>{data.mobileNumber}</td>
               <td>{data.description}</td>
               <td>
                 <button type="button" onClick={() => handelUpdateData(data.id)}>
-                  {/* <button type="button" onClick={() => handelUpdateData(data)}> */}
+                 
                   Edit
                 </button>
               </td>
@@ -83,7 +85,7 @@ export default function ShowList() {
           ))}
         </tbody>
       </table>
-      {/* {rowData && <PersonalInformation rowData = {rowData}/>} */}
+      
     </div>
   );
 }

@@ -71,10 +71,8 @@ const PersonalInformation = () => {
   // };
 
   const SaveData = async () => {
-    alert("heyyyy");
-
     if (userData.id !== 0) {
-      alert(userData.id);
+      // alert(userData.id);
       console.log(userData.id + "update");
       await UpdatePersonInfoAsync(userData, userData.id);
       console.log("User data updated successfully.");
@@ -85,33 +83,18 @@ const PersonalInformation = () => {
     }
 
     setUserData(initialUserData);
-    ShowList();
+    navigate("/show");
   };
 
   const handleShowList = () => {
     navigate("/show");
   };
 
-  const OnShowData = () => {
-    alert(JSON.stringify(userData));
-  };
-
-  // const fetchData = () => {
-  //   GetUserByIdAsync(id || 0);
-  // };
-  // useEffect(() => {
-  //   setUserData(initialUserData);
-  // }, [id]);
-
-  // useEffect(() => {
-  //   var data = await GetUserByIdAsync(id);
-  // }, [id]);
-
   useEffect(() => {
     async function fetchMyAPI() {
       let response = await GetUserByIdAsync(49);
 
-      alert(JSON.stringify(response));
+      // alert(JSON.stringify(response));
 
       setUserData(response.data);
       //dataSet(response);
@@ -191,8 +174,7 @@ const PersonalInformation = () => {
       <br />
 
       <button onClick={SaveData}>
-        Save
-        {/* {userData.id !== 0 ? "Update" : "Save"}  */}
+        {/* {userData.id ===0 ?"Update":"Save"} */}
       </button>
 
       <button className="showbutton" onClick={handleShowList}>
