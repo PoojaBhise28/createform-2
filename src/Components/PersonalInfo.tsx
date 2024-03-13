@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import UserModel from "../Model/UserModel";
 import "../style/PersonalInfo.css";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   CreatePersonInfoAsync,
-  DeletePersonInfoAsync,
   GetUserByIdAsync,
   UpdatePersonInfoAsync,
 } from "../Services/PersonalInfoServices";
-import { CreateUserAsync, UpdateUserAsync } from "../Services/UserServices";
-import ShowList from "./showList";
-import userEvent from "@testing-library/user-event";
 
-// export default function PersonalInfo() {
-//   return (
-//     <div>
-//       <PersonalInformation/>
-//     </div>
-//   )
-// }
+import Home from "./home";
+import { validatePersonalInfo } from "./validatePersonalInfo";
+
+export default function PersonalInfo() {
+  return (
+    <>
+      <PersonalInformation></PersonalInformation>
+    </>
+  );
+}
 
 const PersonalInformation = () => {
   const { id } = useParams();
@@ -40,7 +39,7 @@ const PersonalInformation = () => {
     id: 0,
     isUpdate: false,
   };
-
+  const [errors, setErrors] = useState<string[]>([]);
   const [userData, setUserData] = useState<UserModel>(initialUserData);
   const navigate = useNavigate();
 
@@ -59,40 +58,33 @@ const PersonalInformation = () => {
     setUserData((prevState) => ({ ...prevState, [name]: newValue }));
   };
 
-  // const SaveData = () => {
-  //   //alert(JSON.stringify(userData));
-  //   if(userData.id==0){
-  //     CreatePersonInfoAsync(userData);
-  //   }
-
-  //   else{
-  //     UpdatePersonInfoAsync(rowData,userData.id)
-  //   }
-  // };
-
   const SaveData = async () => {
-    if (userData.id !== 0) {
-      // alert(userData.id);
-      console.log(userData.id + "update");
-      await UpdatePersonInfoAsync(userData, userData.id);
-      console.log("User data updated successfully.");
+    const validationErrors = validatePersonalInfo(userData);
+
+    if (validationErrors.length === 0) {
+      if (userData.id !== 0) {
+        console.log(userData.id + "update");
+        await UpdatePersonInfoAsync(userData, userData.id);
+        console.log("User data updated successfully.");
+      } else {
+        console.log(userData.id + "new");
+        await CreatePersonInfoAsync(userData);
+        console.log("New user data created successfully.");
+      }
+      setUserData(initialUserData);
+      navigate("/showList");
     } else {
-      alert(userData.id + "new");
-      await CreatePersonInfoAsync(userData);
-      console.log("New user data created successfully.");
+      alert(validationErrors.join("\n"));
     }
-    setUserData(initialUserData);
-    navigate("/");
   };
 
   const handleShowList = () => {
-    navigate("/");
+    navigate("/showList");
   };
-
 
   useEffect(() => {
     async function fetchMyAPI() {
-      let response = await GetUserByIdAsync(49);
+      let response = await GetUserByIdAsync(74);
 
       // alert(JSON.stringify(response));
 
@@ -103,32 +95,18 @@ const PersonalInformation = () => {
     fetchMyAPI();
   }, [id]);
 
-
-  // useEffect(() => {
-  //   async function fetchMyAPI() {
-  //     let response = await GetUserByIdAsync(49);
-
-  //     // alert(JSON.stringify(response));
-
-  //     setUserData(response.data);
-  //     //dataSet(response);
-  //   }
-
-  //   fetchMyAPI();
-  // }, [id]);
-
-  
-
   return (
-    <div className="container">
+    <div className="container-personalInfo">
       <h1>Personal Details</h1>
 
       <div className="textFields">
         <label htmlFor="firstName">First Name :</label>
+
         <input
           type="text"
           name="firstName"
           id="firstName"
+          maxLength={50}
           value={userData.firstName}
           autoComplete="off"
           onChange={onTextFieldChange}
@@ -139,17 +117,8 @@ const PersonalInformation = () => {
           type="text"
           name="lastName"
           id="lastName"
+          maxLength={50}
           value={userData.lastName}
-          autoComplete="off"
-          onChange={onTextFieldChange}
-        />
-
-        <label htmlFor="emailAddress">Email Id :</label>
-        <input
-          type="text"
-          name="emailAddress"
-          id="emailAddress"
-          value={userData.emailAddress}
           autoComplete="off"
           onChange={onTextFieldChange}
         />
@@ -159,6 +128,7 @@ const PersonalInformation = () => {
           type="text"
           name="mobileNumber"
           id="mobileNumber"
+          maxLength={10}
           value={userData.mobileNumber}
           autoComplete="off"
           onChange={onTextFieldChange}
@@ -168,6 +138,7 @@ const PersonalInformation = () => {
         <input
           type="text"
           name="phoneNumber"
+          maxLength={10}
           id="phoneNumber"
           value={userData.phoneNumber}
           autoComplete="off"
@@ -181,6 +152,7 @@ const PersonalInformation = () => {
         <textarea
           onChange={onTextAreaFieldChange}
           name="description"
+          maxLength={250}
           cols={10}
           rows={4}
           value={userData.description}
@@ -188,16 +160,18 @@ const PersonalInformation = () => {
         ></textarea>
       </div>
       <br />
+      <div className="button-perosnalinfo">
+        <button onClick={SaveData}>
+          Update
+          {/* {userData.id ===0 ?"Update":"Save"} */}
+        </button>
 
-      <button onClick={SaveData}>
-        {/* {userData.id ===0 ?"Update":"Save"} */}
-      </button>
-
-      <button className="showbutton" onClick={handleShowList}>
-        Show List
-      </button>
+        <button className="showbutton" onClick={handleShowList}>
+          Show List
+        </button>
+      </div>
     </div>
   );
 };
 
-export default PersonalInformation;
+// export default PersonalInformation;

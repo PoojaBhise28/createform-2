@@ -85,6 +85,7 @@ const DemoComponent = () => {
           </div>
           <br></br>
           <button onClick={OnShowData}>Login</button>
+          <p>Don't have an ID? <a href="/register">Register</a></p>
         </div>
       </div>
     );

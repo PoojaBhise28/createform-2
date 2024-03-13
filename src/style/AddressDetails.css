@@ -24,7 +24,11 @@ label {
 }
 
 button {
-    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20%px;
+    padding: 10px 8px;
     background-color: #007bff;
     color: #fff;
     border-radius: 5px;

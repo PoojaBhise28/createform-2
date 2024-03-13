@@ -2,6 +2,22 @@ import axios from "axios";
 
 import { API_URL } from "../APICONFIG";
 
+
+export async function GetAddressInfoByIdAsync(id:number) {
+  try {
+    // const token = localStorage.getItem("Token"); // Replace 'YOUR_BEARER_TOKEN' with your actual bearer token
+ // const response = await axios.get(`http://localhost:5203/api/user`);
+ 
+    const response = await axios.get(`${API_URL}/addressInfo`);
+    //alert(JSON.stringify(response));
+    console.table(response);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to update leave data: " + (error as Error).message);
+  }
+}
+
+
 export async function GetAddressInfoAsync() {
   try {
     // const token = localStorage.getItem("Token"); // Replace 'YOUR_BEARER_TOKEN' with your actual bearer token

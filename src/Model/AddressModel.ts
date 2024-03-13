@@ -2,6 +2,7 @@ interface AddressModel{
     Address:string;
     City:string
     StateId :string
-    CountryId :number
+    CountryId :number;
+    id:number
 }
 export default AddressModel;

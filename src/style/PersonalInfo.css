@@ -1,82 +1,61 @@
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #b32323;
-    border-radius: 5px;
-    background-color: #f9f6f6;
+.container-personalInfo {
+  width: 70%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  }
-  
-  h1 {
-    text-align: center;
-  }
-  
-  .textFields {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    margin-right: 10px;
-  }
-  
-  input[type="text"],
-  select,
-  textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    padding-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  
-  
-  label{
-    font-size: medium;
-    font-weight: bold;
-  }
-  
-  .radioButtons,
-  .list,
-  .date
-  .checkbox {
-    margin-bottom: 20px;
-  }
-  
-  
-  
-  .checkbox label {
-    margin-right: 20px;
-  }
-  
-  /* button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 250px;
-    margin-left: 15%;
-   
-  } */
+.container-personalInfo h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
 
+.textFields {
+  margin-bottom: 20px;
+}
 
-  button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 100px; 
-    margin-left: 150px;
-    
-  }
-  
-  
-  button:hover {
-    background-color: #0056b3;
-    
-  }
-  
+.textFields label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.textFields input[type="text"],
+.textFields textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button-personalinfo {
+  text-align: center;
+}
+
+.button-personalinfo button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-personalinfo button:hover {
+  background-color: #0056b3;
+  padding: 10px;
+}
+
+.showbutton {
+  background-color: #28a745;
+}
+
+.showbutton:hover {
+  background-color: #218838;
+}

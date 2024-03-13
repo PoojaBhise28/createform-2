@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 
 import '../style/AddressDetails.css';
 
-import { CreateAddressInfoAsync } from '../Services/AddressServices';
+import { CreateAddressInfoAsync, GetAddressInfoByIdAsync } from '../Services/AddressServices';
 import AddressModel from '../Model/AddressModel';
-
-
-
+import { useNavigate } from 'react-router-dom';
 
 
 export default function AddressDetail() {
@@ -14,10 +12,12 @@ export default function AddressDetail() {
         Address: '',
         City: '',
         StateId: '',
-        CountryId: 0
+        CountryId: 0,
+        id: 0
     };
 
     const [AddressData, setAddressData] = useState<AddressModel>(initialUserData);
+    const Address = useNavigate();
 
     const onTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.currentTarget.value;
@@ -35,7 +35,7 @@ export default function AddressDetail() {
     const handelAddressData = () => {
       alert(JSON.stringify(AddressData));
       //CreatePersonInfoAsync(userData,2);
-      CreateAddressInfoAsync(AddressData);
+      GetAddressInfoByIdAsync(AddressData.id);
     };
     const onTextAreaFieldChange = (
         event: React.ChangeEvent<HTMLTextAreaElement>
@@ -46,7 +46,10 @@ export default function AddressDetail() {
         setAddressData((prevState) => ({ ...prevState, [name]: newValue }));
         
       };
-  
+      
+      const handleShowList = () => {
+        Address("/");
+      };
 
     return (
         <div className="Address-container">
@@ -96,9 +99,11 @@ export default function AddressDetail() {
                 />
             <br></br>
            
-             
+             <div className="buttonAddress">
                 <button onClick={handelAddressData}>Save</button>
                 <button >Show Data</button>
+                </div>
+              
             </div>
 
             
